@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cohortJson = require("./cohorts.json");
 const PORT = 5005;
 
 // STATIC DATA
@@ -31,6 +32,7 @@ app.get("/students", (req, res) => {
 });
 app.get("/api/cohorts", (req, res) => {
   res.json(cohortJson);
+  // res.sendFile(__dirname + "/cohorts.json");
 });
 
 // START SERVER

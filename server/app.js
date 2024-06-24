@@ -27,7 +27,7 @@ app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
-app.get("/students", (req, res) => {
+app.get("/api/students", (req, res) => {
   res.sendFile(__dirname + "/students.json");
 });
 app.get("/api/cohorts", (req, res) => {

@@ -7,8 +7,6 @@ const PORT = 5005;
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
 
-const cohortJson = require("./cohorts.json");
-
 // INITIALIZE EXPRESS APP - https://expressjs.com/en/4x/api.html#express
 const app = express();
 
@@ -28,6 +26,9 @@ app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
+app.get("/students", (req, res) => {
+  res.sendFile(__dirname + "/students.json");
+});
 app.get("/api/cohorts", (req, res) => {
   res.json(cohortJson);
 });

@@ -4,8 +4,8 @@ const Schema = mongoose.Schema;
 // CREATE SCHEMA
 // Schema - describes and enforces the structure of the documents
 const cohortSchema = new Schema({
-  cohortSlug: { type: string, required: true, unique: true },
-  cohortName: { type: string, required: true },
+  cohortSlug: { type: String, required: true, unique: true },
+  cohortName: { type: String, required: true },
   program: {
     type: String,
     enum: ["Web Dev", "UX/UI", "Data Analytics", "Cybersecurity"],

@@ -10,6 +10,7 @@ const swaggerOptions = require("./swagger.json");
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const mongoose = require("mongoose");
 const Student = require("./models/students.models.js"); // STATIC DATA
+const Cohort = require("./models/cohorts.model.js");
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
 
@@ -75,7 +76,20 @@ app.get("/api/students", (req, res) => {
 });
 
 app.get("/api/cohorts", (req, res) => {
-  res.json(cohortJson);
+  Cohort.find({})
+
+    .then((cohorts) => {
+      console.log("Retrieved students ->", cohorts);
+
+      res.json(cohorts);
+    })
+
+    .catch((error) => {
+      console.error("Error while retrieving cohorts ->", error);
+
+      res.status(500).json({ error: "Failed to retrieve cohorts" });
+    });
+  // res.json(cohortJson);
   // res.sendFile(__dirname + "/cohorts.json");
 });
 

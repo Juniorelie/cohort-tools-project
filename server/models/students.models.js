@@ -31,5 +31,6 @@ const studentSchema = new Schema({
   projects: Array,
 });
 
+const Student = mongoose.model("Student", studentSchema);
 // EXPORT THE MODEL
-module.exports = studentSchema;
+module.exports = Student;

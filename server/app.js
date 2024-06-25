@@ -8,7 +8,8 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerOptions = require("./swagger.json");
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
-// STATIC DATA
+const mongoose = require("mongoose");
+const Student = require("./models/students.models.js"); // STATIC DATA
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
 
@@ -51,9 +52,28 @@ app.get("/docs", (req, res) => {
   res.sendFile(__dirname + "/views/docs.html");
 });
 
+// app.get("/api/students", (req, res) => {
+//   res.sendFile(__dirname + "/students.json");
+// });
+
+//  GET  /students - Retrieve all students from the database
+
 app.get("/api/students", (req, res) => {
-  res.sendFile(__dirname + "/students.json");
+  Student.find({})
+
+    .then((students) => {
+      console.log("Retrieved students ->", students);
+
+      res.json(students);
+    })
+
+    .catch((error) => {
+      console.error("Error while retrieving students ->", error);
+
+      res.status(500).json({ error: "Failed to retrieve students" });
+    });
 });
+
 app.get("/api/cohorts", (req, res) => {
   res.json(cohortJson);
   // res.sendFile(__dirname + "/cohorts.json");
@@ -63,6 +83,15 @@ app.get("/api/cohorts", (req, res) => {
 // Serve Swagger documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // START SERVER
+
+mongoose
+
+  .connect("mongodb://127.0.0.1:27017/cohort-tools-api")
+
+  .then((x) => console.log(`Connected to Database: "${x.connections[0].name}"`))
+
+  .catch((err) => console.error("Error connecting to MongoDB", err));
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });

@@ -11,6 +11,7 @@ const swaggerSpec = swaggerJSDoc(swaggerOptions);
 const mongoose = require("mongoose");
 const Student = require("./models/students.models.js"); // STATIC DATA
 const Cohort = require("./models/cohorts.model.js");
+
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
 
@@ -30,6 +31,7 @@ app.use(cors());
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 // Devs Team - Start working on the routes here:
 // ...
+app.use("/api", require("./routes/index.routes"));
 
 /**
  *

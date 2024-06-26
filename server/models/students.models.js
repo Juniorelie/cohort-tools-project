@@ -31,7 +31,7 @@ const studentSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "cohort",
   },
-  projects: Array,
+  projects: [],
 });
 
 const Student = mongoose.model("Student", studentSchema);

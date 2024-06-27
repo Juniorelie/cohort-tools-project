@@ -4,8 +4,20 @@ const Cohort = require("./../models/cohorts.model");
 
 router.get("/", async (req, res, next) => {
   // TODO
+  const query = {};
+
+  const { campus, program } = req.query;
+  if (campus) {
+    query.campus = campus;
+  }
+  if (program) {
+    query.program = program;
+  }
   try {
-    const cohorts = await Cohort.find();
+    const cohorts = await Cohort.find(query, {
+      campus: 1,
+      program: 1,
+    });
     res.json(cohorts);
   } catch (error) {
     console.log(error);

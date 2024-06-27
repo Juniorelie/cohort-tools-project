@@ -6,7 +6,7 @@ const Student = require("./../models/students.models");
 router.get("/", async (req, res, next) => {
   // TODO
   try {
-    const students = await Student.find();
+    const students = await Student.find().populate("cohort");
     res.json(students);
   } catch (error) {
     console.log(error);
@@ -52,7 +52,9 @@ router.post("/", async (req, res, next) => {
 
 router.get("/:studentId", async (req, res, next) => {
   const { studentId } = req.params;
-  const oneStudent = await Student.findOne({ _id: studentId });
+  const oneStudent = await Student.findOne({ _id: studentId }).populate(
+    "cohort"
+  );
   res.json(oneStudent);
   try {
   } catch (error) {
@@ -62,7 +64,7 @@ router.get("/:studentId", async (req, res, next) => {
 
 router.get("/cohort/:cohortId", async (req, res, next) => {
   const { cohortId } = req.params;
-  const students = await Student.find({ cohort: cohortId });
+  const students = await Student.find({ cohort: cohortId }).populate("cohort");
   res.json(students);
   try {
   } catch (error) {

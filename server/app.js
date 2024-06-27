@@ -12,6 +12,11 @@ const mongoose = require("mongoose");
 const Student = require("./models/students.models.js"); // STATIC DATA
 const Cohort = require("./models/cohorts.model.js");
 
+const {
+  errorHandler,
+  notFoundHandler,
+} = require("./middleware/error-handling.js");
+
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...
 
@@ -64,6 +69,9 @@ app.get("/docs", (req, res) => {
 //Swagger
 // Serve Swagger documentation
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 // START SERVER
 
 mongoose

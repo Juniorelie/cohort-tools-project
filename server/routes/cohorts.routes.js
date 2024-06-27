@@ -21,7 +21,8 @@ router.get("/", async (req, res, next) => {
     });
     res.json(cohorts);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
+    next(error);
   }
 });
 
@@ -33,7 +34,8 @@ router.get("/:cohortId", (req, res, next) => {
       res.status(200).json(cohort);
     })
     .catch((error) => {
-      console.error("Error while retrieving cohort", error);
+      // console.error("Error while retrieving cohort", error);
+      next(error);
     });
 });
 
@@ -45,7 +47,8 @@ router.post("/", (req, res, next) => {
       res.status(201).json(newCohort);
     })
     .catch((error) => {
-      console.error("Error while creating cohort ->", error);
+      // console.error("Error while creating cohort ->", error);
+      next(error);
     });
 });
 
@@ -73,8 +76,9 @@ router.put("/:cohortId", (req, res, next) => {
       res.status(202).json(updatedCohort);
     })
     .catch((error) => {
-      console.error("Error while updating cohort: ", error);
+      // console.error("Error while updating cohort: ", error);
       res.status(500);
+      next(error);
     });
 });
 
@@ -86,7 +90,8 @@ router.delete("/:cohortId", (req, res, next) => {
       res.status(204).json(`Cohort id ${req.params.cohortId} was deleted`);
     })
     .catch((error) => {
-      console.error("Error while deleting cohort: ", error);
+      // console.error("Error while deleting cohort: ", error);
+      next(error);
     });
 });
 

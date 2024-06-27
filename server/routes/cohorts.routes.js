@@ -18,6 +18,7 @@ router.get("/", async (req, res, next) => {
       cohortName: 1,
       campus: 1,
       program: 1,
+      cohortSlug: 1,
     });
     res.json(cohorts);
   } catch (error) {

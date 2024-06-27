@@ -1,5 +1,11 @@
 const router = require("express").Router();
 const Student = require("./../models/students.models");
+const {
+  errorHandler,
+  notFoundHandler,
+} = require("../middleware/error-handling");
+
+// Set up custom error handling middleware:
 
 //! Those routes are prefixed with /api/students
 
@@ -9,7 +15,7 @@ router.get("/", async (req, res, next) => {
     const students = await Student.find().populate("cohort");
     res.json(students);
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 });
 
@@ -46,7 +52,7 @@ router.post("/", async (req, res, next) => {
   res.status(201).json(createdStudent);
   try {
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 });
 
@@ -58,7 +64,7 @@ router.get("/:studentId", async (req, res, next) => {
   res.json(oneStudent);
   try {
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 });
 
@@ -68,7 +74,7 @@ router.get("/cohort/:cohortId", async (req, res, next) => {
   res.json(students);
   try {
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 });
 
@@ -112,7 +118,7 @@ router.put("/:studentId", async (req, res, next) => {
     );
     res.status(202).json(updatedStudent);
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 });
 
@@ -122,7 +128,7 @@ router.delete("/:studentId", async (req, res, next) => {
     await Student.findOneAndDelete({ _id: studentId });
     res.sendStatus(204);
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 });
 

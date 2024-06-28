@@ -15,7 +15,7 @@ const Cohort = require("./models/cohorts.model.js");
 const {
   errorHandler,
   notFoundHandler,
-} = require("./middleware/error-handling.js");
+} = require("./middlewares/error-handling.js");
 
 // Devs Team - Import the provided files with JSON data of students and cohorts here:
 // ...

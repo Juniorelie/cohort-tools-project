@@ -36,6 +36,8 @@ app.use(cors());
 // ROUTES - https://expressjs.com/en/starter/basic-routing.html
 // Devs Team - Start working on the routes here:
 // ...
+app.use("/auth", require("./routes/auth.routes.js"));
+
 app.use("/api", require("./routes/index.routes"));
 
 /**

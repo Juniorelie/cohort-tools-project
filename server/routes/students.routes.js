@@ -3,7 +3,7 @@ const Student = require("./../models/students.models");
 const {
   errorHandler,
   notFoundHandler,
-} = require("../middleware/error-handling");
+} = require("../middlewares/error-handling");
 
 // Set up custom error handling middleware:
 

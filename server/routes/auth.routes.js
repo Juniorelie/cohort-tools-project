@@ -3,16 +3,17 @@ const bcrypt = require("bcryptjs");
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
 const isAuth = require("../middlewares/isAuthenticated");
+const TOKEN_SECRET = "hguerghQERHqegvhyzefZÈY'YZ'T575A34ZEFBHEKflbv";
 
 const SALT = 12;
 
 router.post("/signup", async (req, res, next) => {
   try {
-    const { email, username, password } = req.body;
-    if (!username || !email || !password) {
+    const { name, email, password } = req.body;
+    if (!name || !email || !password) {
       return res
         .status(400)
-        .json({ message: "username, email and password are mandatory." });
+        .json({ message: "name, email and password are mandatory." });
     }
     const foundUser = await User.findOne({ email: email });
     if (foundUser) {
@@ -43,13 +44,13 @@ router.post("/signup", async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, SALT);
 
     const createdUser = await User.create({
-      username,
+      name,
       email,
       password: hashedPassword,
     });
 
     res.status(201).json({
-      message: `Created user ${createdUser.username} with id ${createdUser._id}`,
+      message: `Created user ${createdUser.name} with id ${createdUser._id}`,
     });
   } catch (error) {
     console.log(error);
@@ -75,7 +76,7 @@ router.post("/login", async (req, res, next) => {
     // The user is who they say they are
 
     const payload = { id: foundUser._id };
-    const token = jwt.sign(payload, process.env.TOKEN_SECRET, {
+    const token = jwt.sign(payload, TOKEN_SECRET, {
       expiresIn: "1d",
       algorithm: "HS256",
     });
@@ -86,7 +87,7 @@ router.post("/login", async (req, res, next) => {
   }
 });
 
-router.get("/auth/verify", isAuth, async (req, res, next) => {
+router.get("/verify/", isAuth, async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
     res.json(user);
